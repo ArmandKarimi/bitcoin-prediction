@@ -1,0 +1,29 @@
+
+# Ignore Python cache & environment files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Ignore virtual environment
+env/
+venv/
+.venv/
+
+# Ignore OS-generated files
+.DS_Store
+
+# Ignore logs
+logs/
+*.log
+*.egg-info/
+
+# Ignore large model files (if needed)
+*.pth
+*.h5
+models/
+fresh-clone/
+
+# Ignore compiled DBT artifacts (if using DBT)
+dbt_project/target/
