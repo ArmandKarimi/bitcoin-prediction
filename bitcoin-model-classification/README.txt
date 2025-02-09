@@ -1,0 +1,4 @@
+- This is classifier developped to predict if bitcoin precises goes up or down tomorrow.
+- It just predict a simple diff of today's bitcoin value to tomorrow's prediction.
+- The model used is an LSTM with 2 layers and hidden-size = 64
+- Model shows an accuracy of 75%
