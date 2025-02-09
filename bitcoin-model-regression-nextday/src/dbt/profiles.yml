@@ -1,0 +1,12 @@
+my_project_name:
+  outputs:
+    dev:
+      type: redshift
+      host: "bitcoin-cluster.cppa05dpkktd.eu-north-1.redshift.amazonaws.com"
+      user: "admin"
+      password: 'Carryme5702!'
+      dbname: 'dev'
+      schema: public
+      threads: 1
+      port: 5439
+  target: dev

@@ -1,0 +1,15 @@
+name: 'bitcoin_model_prediction'
+version: '1.0.0'
+config-version: 2
+
+profile: 'my_project_name'
+
+source-paths: ["models"]
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_modules"
+
+models:
+  my_project_name:
+    +materialized: table

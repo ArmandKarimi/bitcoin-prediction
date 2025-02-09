@@ -27,3 +27,6 @@ fresh-clone/
 
 # Ignore compiled DBT artifacts (if using DBT)
 dbt_project/target/
+
+# yml files
+.yml
