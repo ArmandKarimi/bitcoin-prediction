@@ -12,7 +12,7 @@ def upload_to_s3():
     bucket_name = 'my-bitcoin-data-bucket'  # Your actual S3 bucket name
     file_path = f"../../data/raw/bitcoin_prices_{datetime.now().strftime('%Y%m%d')}.csv"  # Path to your local CSV file with current date
     s3_key = f"data/bitcoin_prices_{datetime.now().strftime('%Y%m%d')}.csv"  # S3 key (path) with current date
-
+    print(file_path)
     # Set up the S3 client with your AWS credentials
     s3 = boto3.client('s3')
 

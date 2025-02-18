@@ -54,7 +54,7 @@ def fetch_bitcoin_data(start_date="2014-01-01", end_date=None, save_csv=True):
             os.makedirs("../..data/raw", exist_ok=True)  # Ensure directory exists
             file_path = f"../../data/raw/bitcoin_prices_{datetime.now().strftime('%Y%m%d')}.csv"
             df.to_csv(file_path, index=False)
-            logging.info(f"📁 Data saved to {file_path}")
+            logging.info(f"✅ 📁 Data saved to {file_path}")
 
         return df
 
