@@ -21,7 +21,7 @@ logging.basicConfig(
 
 def fetch_bitcoin_data(start_date="2014-01-01", end_date=None, save_csv=True):
     """
-    Fetch historical Bitcoin price data from Yahoo Finance.
+    Fetch historical Bitcoin price data from Yahoo Finance (yfinance).
 
     :param start_date: Start date for data retrieval (YYYY-MM-DD)
     :param end_date: End date for data retrieval (YYYY-MM-DD) (default: today's date)
