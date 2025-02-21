@@ -1,18 +1,32 @@
 import psycopg2
 import logging
 from datetime import datetime
+from dotenv import load_dotenv
+import os
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger()
 
 # Redshift Connection Details
-IAM_ROLE = "arn:aws:iam::842676012982:role/service-role/AmazonRedshift-CommandsAccessRole-20250208T175217"
-REDSHIFT_HOST = "bitcoin-cluster-paris.cjnvc1uvrkvj.eu-west-3.redshift.amazonaws.com"
-REDSHIFT_PORT = "5439"
-REDSHIFT_DB = "dev"
-REDSHIFT_USER = "admin"
-REDSHIFT_PASSWORD = "Carryme5702!"
+# Get the root project directory (bitcoin-model-regression-nextday)
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+
+# Debugging: Print the expected .env path
+env_path = os.path.join(BASE_DIR, ".env")
+
+# Load the .env file from the root directory
+load_dotenv(env_path)
+
+# Get Redshift credentials
+IAM_ROLE = os.getenv("IAM_ROLE")  # For IAM authentication
+REDSHIFT_HOST = os.getenv("REDSHIFT_HOST")
+REDSHIFT_PORT = os.getenv("REDSHIFT_PORT")
+REDSHIFT_DB = os.getenv("REDSHIFT_DB")
+REDSHIFT_USER = os.getenv("REDSHIFT_USER")
+REDSHIFT_PASSWORD = os.getenv("REDSHIFT_PASSWORD")
+IAM_ROLE = os.getenv("IAM_ROLE")
+
 TABLE_NAME = "bitcoin_price"
 BUCKET_NAME = "my-bitcoin-data-bucket-paris"
 S3_KEY = f"data/bitcoin_prices_{datetime.now().strftime('%Y%m%d')}.csv"

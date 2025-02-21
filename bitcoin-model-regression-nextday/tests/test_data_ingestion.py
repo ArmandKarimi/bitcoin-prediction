@@ -1,5 +1,7 @@
 import psycopg2
 import logging
+import os
+from dotenv import load_dotenv
 
 # Set up logging to both file & console
 logging.basicConfig(
@@ -13,11 +15,20 @@ logging.basicConfig(
 )
 
 # Redshift connection details
-REDSHIFT_HOST = "bitcoin-cluster-paris.cjnvc1uvrkvj.eu-west-3.redshift.amazonaws.com"
-REDSHIFT_PORT = "5439"
-REDSHIFT_DB = "dev"  # Database name
-REDSHIFT_USER = "admin"  # my username
-REDSHIFT_PASSWORD = "Carryme5702!"  # my password
+# Get the root project directory (bitcoin-prediction)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+print(BASE_DIR)
+
+# Load the .env file from the root directory
+load_dotenv(os.path.join(BASE_DIR, ".env"))
+
+
+# Get Redshift credentials
+REDSHIFT_HOST = os.getenv("REDSHIFT_HOST")
+REDSHIFT_PORT = os.getenv("REDSHIFT_PORT")
+REDSHIFT_DB = os.getenv("REDSHIFT_DB")
+REDSHIFT_USER = os.getenv("REDSHIFT_USER")
+REDSHIFT_PASSWORD = os.getenv("REDSHIFT_PASSWORD")
 
 # Define the SQL query to fetch data
 test_query = """
