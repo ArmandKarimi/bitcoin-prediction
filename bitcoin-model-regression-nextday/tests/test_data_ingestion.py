@@ -13,7 +13,7 @@ logging.basicConfig(
 )
 
 # Redshift connection details
-REDSHIFT_HOST = "bitcoin-cluster.cppa05dpkktd.eu-north-1.redshift.amazonaws.com"
+REDSHIFT_HOST = "bitcoin-cluster-paris.cjnvc1uvrkvj.eu-west-3.redshift.amazonaws.com"
 REDSHIFT_PORT = "5439"
 REDSHIFT_DB = "dev"  # Database name
 REDSHIFT_USER = "admin"  # my username
@@ -22,8 +22,7 @@ REDSHIFT_PASSWORD = "Carryme5702!"  # my password
 # Define the SQL query to fetch data
 test_query = """
 SELECT * 
-FROM bitcoin_prices 
-ORDER BY "date" DESC 
+FROM bitcoin_price 
 LIMIT 10;
 """
 
@@ -46,7 +45,7 @@ try:
     for row in results:
         print(row)
     
-    logging.info("✅ Table 'bitcoin_prices' exists and data fetched!")  # Corrected logging call
+    logging.info("✅ Table 'bitcoin_price' exists and data fetched!")  # Corrected logging call
     
     # Close the cursor and connection
     cur.close()

@@ -1,7 +1,7 @@
 import psycopg2
 
 # Redshift connection details
-REDSHIFT_HOST = "bitcoin-cluster.cppa05dpkktd.eu-north-1.redshift.amazonaws.com"
+REDSHIFT_HOST = "bitcoin-cluster-paris.cjnvc1uvrkvj.eu-west-3.redshift.amazonaws.com"
 REDSHIFT_PORT = "5439"
 REDSHIFT_DB = "dev"
 REDSHIFT_USER = "admin"
@@ -9,7 +9,7 @@ REDSHIFT_PASSWORD = "Carryme5702!"
 
 # Define the SQL query to create the table
 create_table_query = """
-CREATE TABLE bitcoin_prices (
+CREATE TABLE bitcoin_price (
     id BIGINT IDENTITY(1,1),
     date TIMESTAMP NOT NULL,
     open_price DECIMAL(18,8),

@@ -9,7 +9,7 @@ logger = logging.getLogger()
 
 def upload_to_s3():
     # Specify your AWS S3 bucket name and the file path with current date
-    bucket_name = 'my-bitcoin-data-bucket'  # Your actual S3 bucket name
+    bucket_name = 'my-bitcoin-data-bucket-paris'  # Your actual S3 bucket name
     file_path = f"../../data/raw/bitcoin_prices_{datetime.now().strftime('%Y%m%d')}.csv"  # Path to your local CSV file with current date
     s3_key = f"data/bitcoin_prices_{datetime.now().strftime('%Y%m%d')}.csv"  # S3 key (path) with current date
     print(file_path)

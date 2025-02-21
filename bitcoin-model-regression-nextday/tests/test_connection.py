@@ -13,7 +13,7 @@ logging.basicConfig(
 )
 
 conn = psycopg2.connect(
-    host="bitcoin-cluster.cppa05dpkktd.eu-north-1.redshift.amazonaws.com",
+    host="bitcoin-cluster-paris.cjnvc1uvrkvj.eu-west-3.redshift.amazonaws.com",
     port="5439",
     dbname="dev",
     user="admin",

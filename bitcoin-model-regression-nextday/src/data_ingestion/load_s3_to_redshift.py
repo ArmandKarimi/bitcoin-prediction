@@ -8,13 +8,13 @@ logger = logging.getLogger()
 
 # Redshift Connection Details
 IAM_ROLE = "arn:aws:iam::842676012982:role/service-role/AmazonRedshift-CommandsAccessRole-20250208T175217"
-REDSHIFT_HOST = "bitcoin-cluster.cppa05dpkktd.eu-north-1.redshift.amazonaws.com"
+REDSHIFT_HOST = "bitcoin-cluster-paris.cjnvc1uvrkvj.eu-west-3.redshift.amazonaws.com"
 REDSHIFT_PORT = "5439"
 REDSHIFT_DB = "dev"
 REDSHIFT_USER = "admin"
 REDSHIFT_PASSWORD = "Carryme5702!"
-TABLE_NAME = "bitcoin_prices"
-BUCKET_NAME = "my-bitcoin-data-bucket"
+TABLE_NAME = "bitcoin_price"
+BUCKET_NAME = "my-bitcoin-data-bucket-paris"
 S3_KEY = f"data/bitcoin_prices_{datetime.now().strftime('%Y%m%d')}.csv"
 
 def load_data_to_redshift():
