@@ -1,0 +1,111 @@
+.
+├── README.md
+├── __pycache__
+│   ├── config.cpython-311.pyc
+│   └── config.cpython-39.pyc
+├── best_model.pth
+├── config
+│   └── config.yaml
+├── config.py
+├── data
+│   ├── processed
+│   └── raw
+│       ├── bitcoin_prices_20250209.csv
+│       ├── bitcoin_prices_20250218.csv
+│       ├── bitcoin_prices_20250219.csv
+│       └── bitcoin_prices_20250221.csv
+├── dockerfile
+├── model
+│   └── best_model.pth
+├── notebooks
+│   └── Bitcoin-biLSTM_pct.ipynb
+├── project_structure.txt
+├── requirements.txt
+├── setup.py
+├── setup.sh
+├── src
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-311.pyc
+│   │   ├── cconfig.cpython-311.pyc
+│   │   ├── config.cpython-311.pyc
+│   │   ├── fetch_data.cpython-311.pyc
+│   │   ├── fetch_data.cpython-39.pyc
+│   │   ├── main.cpython-311.pyc
+│   │   ├── model.cpython-311.pyc
+│   │   ├── model.cpython-39.pyc
+│   │   ├── model_GRU.cpython-311.pyc
+│   │   ├── model_GRU.cpython-39.pyc
+│   │   ├── model_LSTM.cpython-311.pyc
+│   │   ├── model_LSTM.cpython-39.pyc
+│   │   ├── model_biLSTM.cpython-311.pyc
+│   │   ├── model_biLSTM.cpython-39.pyc
+│   │   ├── processing.cpython-311.pyc
+│   │   ├── processing.cpython-39.pyc
+│   │   ├── test_model.cpython-311.pyc
+│   │   ├── test_model.cpython-39.pyc
+│   │   ├── train_model.cpython-311.pyc
+│   │   ├── train_model.cpython-39.pyc
+│   │   ├── visualization.cpython-311.pyc
+│   │   └── visualization.cpython-39.pyc
+│   ├── airflow
+│   │   ├── connection.py
+│   │   ├── dags
+│   │   │   └── dag.py
+│   │   └── plugins
+│   ├── best_model.pth
+│   ├── data_ingestion
+│   │   ├── __init__.py
+│   │   ├── create_tables.py
+│   │   ├── fetch_data.py
+│   │   ├── load_s3_to_redshift.py
+│   │   ├── load_to_s3.py
+│   │   └── logs
+│   │       ├── fetch_data_20250209.log
+│   │       ├── fetch_data_20250218.log
+│   │       ├── fetch_data_20250219.log
+│   │       └── fetch_data_20250221.log
+│   ├── dbt
+│   │   ├── dbt_project.yml
+│   │   ├── logs
+│   │   │   └── dbt.log
+│   │   ├── models
+│   │   │   └── bitcoin_transformation.sql
+│   │   ├── profiles.yml
+│   │   └── target
+│   │       ├── compiled
+│   │       │   └── bitcoin_model_prediction
+│   │       │       └── models
+│   │       │           └── bitcoin_transformation.sql
+│   │       ├── graph.gpickle
+│   │       ├── graph_summary.json
+│   │       ├── manifest.json
+│   │       ├── partial_parse.msgpack
+│   │       ├── run
+│   │       │   └── bitcoin_model_prediction
+│   │       │       └── models
+│   │       │           └── bitcoin_transformation.sql
+│   │       ├── run_results.json
+│   │       └── semantic_manifest.json
+│   ├── fetch_data.py
+│   ├── main.py
+│   ├── model.py
+│   ├── model_GRU.py
+│   ├── model_LSTM.py
+│   ├── model_biLSTM.py
+│   ├── processing.py
+│   ├── test_model.py
+│   ├── train_model.py
+│   └── visualization.py
+└── tests
+    ├── app.log
+    ├── logs
+    │   └── fetch_data_20250222.log
+    ├── main.py
+    ├── test_connection.py
+    ├── test_data_ingestion.py
+    ├── test_env.py
+    ├── test_model_training.py
+    └── test_transformed_data.py
+
+27 directories, 82 files

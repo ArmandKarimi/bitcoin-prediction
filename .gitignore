@@ -30,8 +30,14 @@ logs/
 models/
 fresh-clone/
 
-# Ignore compiled DBT artifacts (if using DBT)
-dbt/target/
+# Ignore these local direcotories (we use then in the instance on EC2)
+/tests/
+/src/data_ingestion/
+/src/dbt/
+/src/airflow/
+
+#igonre airflow
+/airflow/
 
 # yml files
 .yml

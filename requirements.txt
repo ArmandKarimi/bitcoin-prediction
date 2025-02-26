@@ -425,3 +425,13 @@ xyzservices==2024.9.0
 yarl==1.17.0
 yfinance==0.2.48
 zipp==3.20.2
+
+# for EC2 instance
+apache-airflow
+apache-airflow-providers-amazon
+apache-airflow-providers-postgres
+dbt-core
+dbt-redshift
+boto3
+pandas
+
