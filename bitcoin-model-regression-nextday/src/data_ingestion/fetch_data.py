@@ -65,4 +65,4 @@ def fetch_bitcoin_data(start_date="2014-01-01", end_date=None, save_csv=True):
 if __name__ == "__main__":
     # Fetch data from Jan 1, 2022, to today's date
     df = fetch_bitcoin_data(start_date="2014-01-01")
-    print(df.info())
+    print(df.head())
