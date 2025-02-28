@@ -61,20 +61,7 @@ def main():
     val_loader   = data_loader(X_val_seq, y_val_seq, BATCH_SIZE)
     test_loader  = data_loader(X_test_seq, y_test_seq, BATCH_SIZE)
     
-    # --- Model Setup ---
-    # model = TimeSeriesTransformer(
-    #     input_size=INPUT_SIZE,
-    #     d_model=D_MODEL,        
-    #     nhead=NHEAD,            
-    #     num_layers=NUM_LAYERS,       
-    #     dim_feedforward=DIM_FEEDFORWARD, 
-    #     dropout=DROPOUT
-    # )
-    
-
-    #model = Bitcoin_LSTM(input_size = INPUT_SIZE, hidden_size = HIDDEN_SIZE, num_layers = NUM_LAYERS, dropout_rate = DROPOUT_RATE)
     model = BitcoinGRU(input_size=INPUT_SIZE, hidden_size=HIDDEN_SIZE, num_layers=NUM_LAYERS, dropout_rate=DROPOUT_RATE)
-    #model = BitcoinBiLSTM(input_size = INPUT_SIZE, hidden_size = HIDDEN_SIZE, dropout_rate = DROPOUT)
 
     model.to(device)
     criterion = nn.MSELoss()
