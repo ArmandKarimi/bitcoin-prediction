@@ -22,7 +22,7 @@ from config import NAME, START, END, INPUT_SIZE, HIDDEN_SIZE, DROPOUT_RATE, \
                    D_MODEL,NHEAD, NUM_LAYERS, DIM_FEEDFORWARD,DROPOUT
 
 # Import necessary modules
-from fetch_data import load_data
+from fetch_from_redshift import load_data
 from processing import chronological_split, moving_avg_normalization, create_sequences, data_loader
 from model import TimeSeriesTransformer
 from train_model import train_model
@@ -39,7 +39,7 @@ def main():
     
     # --- Data Fetching ---
     logger.info("Fetching data...")
-    data = load_data(NAME, START, END)
+    data = load_data()
     logger.info(f"✅ Data fetched. Shape: {data.shape}")
     
     # --- Data Processing ---

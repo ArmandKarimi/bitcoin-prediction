@@ -56,5 +56,5 @@ def load_data(name = NAME, start = START, end = END):
 
 if __name__ == "__main__":
     df = load_data(name = NAME, start = START, end = END)
-    print(df.info())
+    print(df.describe())
     #print(df.columns)

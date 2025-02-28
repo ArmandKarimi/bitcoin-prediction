@@ -11,7 +11,7 @@ import numpy as np
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from config import RATIOS, SEQ_LENGTH, PRED_LENGTH, BATCH_SIZE,NAME, START, END
-from fetch_data import load_data
+from fetch_from_redshift import load_data
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -105,7 +105,7 @@ def data_loader(X_seq, y_seq, batch_size=BATCH_SIZE):
 if __name__ == "__main__":
       # --- Data Fetching ---
     logger.info("Fetching data...")
-    data = load_data(NAME, START, END)
+    data = load_data()
     logger.info(f"✅ Data fetched. Shape: {data.shape}")
     
     # --- Data Processing ---

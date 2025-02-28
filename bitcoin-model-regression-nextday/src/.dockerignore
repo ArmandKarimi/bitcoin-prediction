@@ -1,0 +1,54 @@
+# Ignore Python cache & compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore logs
+*.log
+logs/
+app.log
+
+# Ignore raw & processed data
+data/
+data/raw/
+data/processed/
+*.csv  
+
+# Ignore models (they should be stored in S3)
+*.pth
+model/
+best_model.pth
+
+# Ignore config & sensitive files
+config.py
+config.yaml
+config/
+.env  # Very important for security
+
+# Ignore unnecessary Airflow & ingestion scripts
+/airflow
+/data_ingestion
+/dbt
+
+# Ignore notebooks and documentation
+notebooks/
+*.ipynb
+README.md
+
+# Ignore editor & system files
+.vscode/
+.DS_Store
+
+# Ensure Docker & dependencies are NOT ignored
+!Dockerfile
+!requirements.txt
+
+
+
+
+
+
+
+
+

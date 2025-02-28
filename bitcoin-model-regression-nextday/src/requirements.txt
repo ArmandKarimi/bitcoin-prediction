@@ -434,4 +434,8 @@ apache-airflow-providers-postgres
 dbt-core
 dbt-redshift
 boto3
-pandas
+
+#fetching data
+psycopg2
+dotenv
+

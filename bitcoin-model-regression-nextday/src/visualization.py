@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import os
 
 def plot_predictions(true, pred, title="Predictions vs True Values"):
     """
@@ -14,9 +15,11 @@ def plot_predictions(true, pred, title="Predictions vs True Values"):
         percent changes (Close), consider changing it to "Percent Change (%)" or
         another appropriate label.
     """
+    # Ensure the 'image' directory exists
+    image_dir = "image"
+    os.makedirs(image_dir, exist_ok=True)  
+
     plt.figure(figsize=(12, 6))
-    # plt.plot(true[:, 0], label='True prices', alpha=0.7)
-    # plt.plot(pred[:, 0], label='Predicted prices', linestyle='--')
     plt.plot(true, label='True prices', alpha=0.7)
     plt.plot(pred, label='Predicted prices', linestyle='--')
     plt.title("Bitcoin price prediction USD")
@@ -24,3 +27,10 @@ def plot_predictions(true, pred, title="Predictions vs True Values"):
     plt.ylabel("Bitcoin Price (USD)")
     plt.legend()
     plt.show()
+
+    # Define the full path to save the image
+    save_path = os.path.join(image_dir, "bitcoin_price_viz")
+    
+    # Save the image
+    plt.savefig(save_path, dpi=300)  # High resolution
+    plt.close()  # Close plot to free memory
