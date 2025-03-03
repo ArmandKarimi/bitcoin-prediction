@@ -6,6 +6,7 @@ import numpy as np
 import logging
 import sys
 import os
+import json
 from sklearn.metrics import mean_squared_error as MSE
 from sklearn.metrics import mean_absolute_error as MAE
 
@@ -13,26 +14,42 @@ from sklearn.metrics import mean_absolute_error as MAE
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
-# 👈 Add the parent directory to Python's path so it access modules (e..g config) in the main directory as if it were a package
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-# Import configuration constants
-from config import NAME, START, END, INPUT_SIZE, HIDDEN_SIZE, DROPOUT_RATE, \
-                   BATCH_SIZE, EPOCHS, SEQ_LENGTH, PRED_LENGTH, LEARNING_RATE, \
-                   D_MODEL,NHEAD, NUM_LAYERS, DIM_FEEDFORWARD,DROPOUT
-
 # Import necessary modules
 from fetch_from_redshift import load_data
 from processing import chronological_split, moving_avg_normalization, create_sequences, data_loader
-from model import TimeSeriesTransformer
 from train_model import train_model
 from test_model import evaluate, inverse_transform
 from visualization import plot_predictions
-from model_LSTM import Bitcoin_LSTM
 from model_GRU import BitcoinGRU
-from model_biLSTM import BitcoinBiLSTM
 
 def main():
+    # Split ratios
+    RATIOS = (0.5, 0.3, 0.2)
+
+    # Sequence and prediction lengths
+    SEQ_LENGTH = 30
+    PRED_LENGTH = 1
+
+    # Model architecture
+    INPUT_SIZE = 25 
+    HIDDEN_SIZE = 128
+    DROPOUT_RATE = 0.1
+
+    NUM_LAYERS=2   
+    DROPOUT=0.1
+
+    # Transformer Architecture
+    D_MODEL = 64       
+    NHEAD=8           
+    DIM_FEEDFORWARD=128
+
+
+    # Training parameters
+    LEARNING_RATE = 0.001
+    BATCH_SIZE = 32
+
+    EPOCHS = 40
+
     # Set device (GPU if available, else CPU)
     device = torch.device("mps" if torch.backends.mps.is_available() else "cuda" if torch.cuda.is_available() else "cpu")
     logger.info(f"Using device: {device}")
@@ -115,13 +132,32 @@ def main():
     else:
         logger.warning(f"Alert: Predicted change is {last_pct_change:.3f}%, below threshold {threshold}%. Don't buy	⛔")
 
+    # Define output directory
+    output_dir = os.path.join("output")
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Define file path for JSON output
+    json_file_path = os.path.join(output_dir, "predictions.json")
+
+    # Create dictionary with prediction results
+    prediction_results = {
+        "true_price": float(trues[-1]),
+        "mae": float(mae_error),
+        "mse": float(mse_error),
+        "predicted_today": float(today_pred),
+        "predicted_tomorrow": float(tomorrow_pred),
+        "percentage_change": float(last_pct_change)
+    }
+
+    # Save to JSON file
+    with open(json_file_path, "w") as f:
+        json.dump(prediction_results, f, indent=4)
+
+    logger.info(f"✅ Predictions saved to {json_file_path}")
+    
     # --- Visualization ---
     plot_predictions(trues, preds, title="Test Set: Predictions vs True Values")
 
-    #---- save model ------
-    model_dir = os.path.join("..", "model")
-    os.makedirs(model_dir, exist_ok=True)
-    torch.save(model.state_dict(), os.path.join(model_dir, "best_model.pth"))
 
 if __name__ == "__main__":
     main()

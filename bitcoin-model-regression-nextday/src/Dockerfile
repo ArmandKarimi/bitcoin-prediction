@@ -1,20 +1,36 @@
-# Use official Python image
-FROM python:3.9
+# Use Ubuntu with amd64 architecture
+FROM --platform=linux/amd64 ubuntu:22.04
 
-# Set working directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy only requirements first (optimizes Docker caching)
+# Prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    python3-dev \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Ensure pip is upgraded
+RUN pip3 install --upgrade pip
+
+# Copy requirements.txt and install dependencies
 COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy everything inside 'src/' into '/app/'
+COPY . /app/
 
-# Copy the rest of the application code AFTER installing dependencies
-COPY . .
+# Ensure output directory exists
+RUN mkdir -p /app/output
 
-# Ensure the script has execution permissions (just in case)
-RUN chmod +x main.py
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
 
-# Run the model script
-CMD ["python", "main.py"]
+# Run the prediction script
+CMD ["python3", "/app/main.py"]

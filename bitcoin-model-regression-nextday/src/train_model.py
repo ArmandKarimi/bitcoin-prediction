@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
-from config import EPOCHS
+
+EPOCHS = 40 
 
 def train_model(model, train_loader, val_loader, optimizer, criterion, scheduler, device, epochs=EPOCHS):
     """

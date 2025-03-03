@@ -19,6 +19,9 @@ data/processed/
 *.pth
 model/
 best_model.pth
+model_biLSTM.py
+model.py
+model_LSTM.py
 
 # Ignore config & sensitive files
 config.py

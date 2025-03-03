@@ -1,9 +1,3 @@
-import datetime
-
-# Yahoo Finance settings
-NAME = "BTC-USD"
-START = "2014-01-01"
-END = datetime.datetime.now()  # Consider using datetime.datetime.now() or "from datetime import datetime"
 
 
 # Split ratios

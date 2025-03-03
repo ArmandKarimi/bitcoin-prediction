@@ -7,10 +7,11 @@ from airflow.providers.amazon.aws.transfers.s3_to_redshift import S3ToRedshiftOp
 from datetime import datetime, timedelta
 import logging
 import pandas as pd
+import os
 
 ### ------------- DAG Configuration --------------- ###
 S3_BUCKET = "my-bitcoin-data-bucket-paris"
-S3_KEY = "raw_data/bitcoin_prices.csv"
+S3_KEY = "raw_daily_data/bitcoin_daily_prices.csv"
 REDSHIFT_TABLE = "bitcoin_prices_raw"
 
 # Ensure Redshift connection matches Airflow UI connection ID
@@ -34,12 +35,14 @@ def fetch_bitcoin_data():
         numeric_cols = ['Open', 'High', 'Low', 'Close']
         df[numeric_cols] = df[numeric_cols].round(4)  # Limits decimal places to 8
 
-
         if df.empty:
             raise ValueError("No data fetched from Yahoo Finance!")
 
-        df.to_csv('/tmp/bitcoin_data.csv', index=False) 
-        logging.info("✅ Bitcoin data saved to /tmp/bitcoin_data.csv")
+        os.makedirs("/tmp/raw_historical_data", exist_ok=True)
+        df.to_csv('/tmp/raw_historical_data/bitcoin_full_history.csv', index=False) 
+
+        logging.info("✅ Bitcoin data saved to /tmp/raw_historical_data/bitcoin_full_history.csv") 
+
     except Exception as e:
         logging.error(f"❌ Error fetching Bitcoin data: {str(e)}", exc_info=True)
         raise
@@ -49,7 +52,7 @@ def upload_to_s3():
     try:
         logging.info("Uploading data to S3...")
         s3_hook = S3Hook(aws_conn_id=AWS_CONN_ID)
-        s3_hook.load_file('/tmp/bitcoin_data.csv', key=S3_KEY, bucket_name=S3_BUCKET, replace=True)
+        s3_hook.load_file('/tmp/raw_historical_data/bitcoin_full_history.csv', key=S3_KEY, bucket_name=S3_BUCKET, replace=True)
         logging.info(f"✅ Successfully uploaded data to S3: s3://{S3_BUCKET}/{S3_KEY}")
 
     except Exception as e:
@@ -59,17 +62,17 @@ def upload_to_s3():
 ### ------------- Airflow DAG Definition --------------- ###
 with DAG(
     dag_id="bitcoin_price_daily",
-    start_date=datetime(2024, 2, 25),
+    start_date=datetime(2024, 2, 26, 23, 0),
     schedule_interval='0 23 * * *',  # ✅ Run daily at 11 PM
     catchup=False,
-    retries=3,
-    retry_delay=timedelta(minutes=5)
-) as dag:
+    ) as dag:
 
     # Step 1: Fetch Bitcoin data and save to CSV
     fetch_data = PythonOperator(
         task_id="fetch_bitcoin_data",
-        python_callable=fetch_bitcoin_data
+        python_callable=fetch_bitcoin_data,
+        retries = 3,
+        retry_delay=timedelta(minutes=5)
     )
 
     # Step 2: Upload the CSV file to S3
@@ -90,12 +93,18 @@ with DAG(
         redshift_conn_id=REDSHIFT_CONN_ID
     )
 
-
-    # add a dbt run
+    # step4 : run dbt
     dbt_run = BashOperator(
     task_id='run_dbt',
-    bash_command='cd ~/dbt_bitcoin/bitcoin_prediction && dbt run --debug'
+    bash_command="""
+    source ~/airflow_venv/bin/activate && \
+    cd ~/dbt_bitcoin/bitcoin_prediction && \
+    dbt run
+    """,
+    retries=3,
+    retry_delay=timedelta(minutes=5)
 )
+
 
     # DAG Task Dependencies
     fetch_data >> upload_data >> load_to_redshift >> dbt_run

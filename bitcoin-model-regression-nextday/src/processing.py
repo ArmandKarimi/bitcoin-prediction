@@ -8,18 +8,23 @@ import numpy as np
 
 
 # 👈 Add the parent directory to Python's path so it access modules (e..g config) in the main directory as if it were a package
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+#sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from config import RATIOS, SEQ_LENGTH, PRED_LENGTH, BATCH_SIZE,NAME, START, END
 from fetch_from_redshift import load_data
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
+RATIOS = (0.5, 0.3, 0.2)
+SEQ_LENGTH = 30
+PRED_LENGTH = 1
+BATCH_SIZE = 32
 
 #____SPLIT data chornolgically_______
 def chronological_split(data, ratios=(0.7, 0.15, 0.15), buffer=7):
+    # Split ratios
+    
     """
     Splits the DataFrame into training, validation, and test sets in chronological order with a buffer.
     """
